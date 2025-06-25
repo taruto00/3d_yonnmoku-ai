@@ -23,7 +23,7 @@ from pv_mcts    import pv_mcts_action        # ビットボード対応版
 
 # -------------------- パラメータ --------------------
 EN_GAME_COUNT  = 200     # 評価ゲーム数 (本家400)
-EN_TEMPERATURE = 0.1    # ボルツマン温度
+EN_TEMPERATURE = 0.05    # ボルツマン温度0.1→0.05
 
 # -------------------- ポイント計算 -------------------
 def first_player_point(ended_state: State) -> float:
@@ -74,7 +74,7 @@ def evaluate_network():
     K.clear_session(); del model_latest, model_best
 
     # --- best 更新判定 ---
-    if avg > 0.53:                        # 100局に評価局数を増やし, 0.53で低めの更新判定を採用
+    if avg > 0.52:                        # 100局に評価局数を増やし, 0.53で低めの更新判定を採用→0.52
         update_best_player()
         return True
     return False
