@@ -39,7 +39,7 @@ from tensorflow.keras import backend as K
 
 from dual_network import DN_INPUT_SHAPE         # (4,4,8)
 
-RN_EPOCHS = 30          # エポック数
+RN_EPOCHS = 40          # エポック数 30→40
 SIZE      = DN_INPUT_SHAPE[0]                   # 4
 
 # -----------------------------------------------------
@@ -138,11 +138,17 @@ def train_network():
      #   return 0.0001 if epoch>=15 else 0.0002 if epoch>=8 else 0.0003
     #lr_sched = LearningRateScheduler(step_decay, verbose=0)
 
+    #def step_decay(epoch):
+     #   if epoch < 5:   return 1e-3
+     #   if epoch < 12:  return 5e-4
+     #   if epoch < 18:  return 1e-4
+     #   return 2.5e-4
     def step_decay(epoch):
-        if epoch < 5:   return 1e-3
-        if epoch < 12:  return 5e-4
-        if epoch < 18:  return 1e-4
-        return 2.5e-4
+        if epoch < 10:  return 5e-4   # ← 最初を少し下げる
+        if epoch < 20:  return 2.5e-4
+        return 1e-4
+
+
     lr_sched = LearningRateScheduler(step_decay, verbose=0)
 
     # --- 進捗表示
