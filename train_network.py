@@ -75,13 +75,26 @@ def bitboards_to_tensor_batch(pieces_arr, enemy_arr):
 # -----------------------------------------------------
 # リプレイ読み込み
 # -----------------------------------------------------
-def load_history():
+"""def load_history():
     hist_files = sorted(Path("./data").glob("*.history"))
     if not hist_files:
         print("❌  data/*.history がありません。self_play を回してください。")
         sys.exit()
     with hist_files[-1].open("rb") as f:
-        return pickle.load(f)
+        return pickle.load(f)"""
+def load_history(buffer_size: int = 80000):
+    files = sorted(Path("./data").glob("*.history"))
+    merged = []
+    for p in files[::-1]:              # 新→旧 に走査
+        with p.open("rb") as f:
+            merged.extend(pickle.load(f))
+        if len(merged) >= buffer_size:
+            break
+    # ランダムにシャッフル & バッファ上限でトリム
+    rng = np.random.default_rng(42)
+    rng.shuffle(merged)
+    return merged[:buffer_size]
+
 
 # -----------------------------------------------------
 # 学習ループ
@@ -160,6 +173,7 @@ def train_network():
     history_obj = model.fit(
         xs, [y_policies, y_values],
         batch_size = 128,
+        shuffle = True,
         epochs     = RN_EPOCHS,
         verbose    = 0,
         callbacks  = [lr_sched, print_cb]
