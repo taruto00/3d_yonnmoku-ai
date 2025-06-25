@@ -23,7 +23,7 @@ from pv_mcts    import pv_mcts_action        # ビットボード対応版
 
 # -------------------- パラメータ --------------------
 EN_GAME_COUNT  = 100     # 評価ゲーム数 (本家400)
-EN_TEMPERATURE = 1.0    # ボルツマン温度
+EN_TEMPERATURE = 0.1    # ボルツマン温度
 
 # -------------------- ポイント計算 -------------------
 def first_player_point(ended_state: State) -> float:
