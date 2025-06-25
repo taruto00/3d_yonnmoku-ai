@@ -76,7 +76,7 @@ def self_play():
         from dual_network import dual_network
         dual_network()
 
-    model = load_model("./model/best.h5")
+    model = load_model("./model/best.h5", compile=False)
 
     # -------- ベンチマーク（1 ゲーム） ------------------------
     start = time.time()
