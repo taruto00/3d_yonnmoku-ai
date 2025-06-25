@@ -1,5 +1,5 @@
 # 3d_yonnmoku-ai
-4×4×4立体四目並べのAI実装. Pythonによる学習. 
+4×4×4立体四目並べのAI実装. PythonによるAlpha Zero方式の学習. 
 
 学習環境はgoogle colab pro. 
 
