@@ -74,7 +74,7 @@ def evaluate_network():
     K.clear_session(); del model_latest, model_best
 
     # --- best 更新判定 ---
-    if avg > 0.52:                        # 100局に評価局数を増やし, 0.53で低めの更新判定を採用→0.52
+    if avg < 0.48:                        # 閾値を変更
         update_best_player()
         return True
     return False
