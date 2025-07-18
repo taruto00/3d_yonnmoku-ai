@@ -2,7 +2,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Tuple
-import argparse, random, math, numpy as np
+import argparse, random, math
 
 # ---------- 盤面ユーティリティ --------------------------------
 SIZE = 4
